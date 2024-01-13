@@ -2,8 +2,9 @@
 
 
 :root {
-      --theme:rgb(26,10,79);
+      --theme:#662d91;
       --white:rgb(255,255,255);
+      --shadow:rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
   }
 
 

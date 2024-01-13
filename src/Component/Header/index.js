@@ -4,9 +4,10 @@ import "./style.css";
 const Header = () => {
   return (
       <div className="navbar">
-        <p className="logo">
-            ApnaWallet
+        <p className="logo link">
+            ApnaWallet.
         </p>
+        <p className="logo link">Log Out</p>
       </div>
 
   );
