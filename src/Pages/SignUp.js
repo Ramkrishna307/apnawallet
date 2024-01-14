@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../Component/Header';
 import SignUpSignIn from '../Component/SignUpSignIn';
+import LogIn from '../Component/LogIn';
 const SignUp = () => {
-    console.log("Hello");
+  const[isLogin,setIsLogIn]=useState(false)
   return (
     <>
      <Header/>
      <div className='wrapper'>
-        
-       <SignUpSignIn/>
+        {isLogin ? <LogIn isLogin={isLogin} setIsLogIn={setIsLogIn} /> : <SignUpSignIn isLogin={isLogin} setIsLogIn={setIsLogIn}/>}
+       
      </div>
     </>
        

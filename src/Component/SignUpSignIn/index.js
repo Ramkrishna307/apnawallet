@@ -2,21 +2,23 @@ import React, { useState } from 'react'
 import "./style.css"
 import Input from '../Input'
 import Button from '../Button';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { toast } from 'react-toastify';
 import {createUserWithEmailAndPassword } from "firebase/auth";
-const  SignUpSignIn = () => {
+import { doc, setDoc,getDoc } from "firebase/firestore"; 
+import { useNavigate } from 'react-router-dom';
+const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
   const[name,setName]=useState("");
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
   const[confirmPassword,setConfirmPassword]=useState("");
   const[loading,setLoading]=useState(false);
-
+  const navigate=useNavigate();
 
   function signUpWithEmail(){
     setLoading(true);
     console.log("Name",name);
-    if(name !="" && email !="" && password !=""){
+    if(name !=="" && email !=="" && password !=""){
    // Authetication of the user and creating new user
    if(password ===confirmPassword){
     createUserWithEmailAndPassword(auth, email, password)
@@ -57,10 +59,37 @@ const  SignUpSignIn = () => {
   }
 
 
-  function createDocs(){
-   //make sure the doc user id does not match
-   //here we are storing the data 
+ 
+
+  async function createDocs(user) {
+    const docRef = doc(db, "user", user.uid);
+     setLoading(true);
+    try {
+      // Check if the document exists
+      const docSnapshot = await getDoc(docRef);
+
+      if (!docSnapshot.exists()) {
+        // Document does not exist, create it
+        await setDoc(docRef, {
+          name: name,
+          email: user.email,
+          photoURL: user.photoURL ? user.photoURL : "",
+          createdAt: new Date(),
+        });
+        toast.success("Doc Created");
+        setLoading(false);
+      } else {
+        // Document already exists
+        toast.error("The Doc already exists");
+        setLoading(false);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
   }
+
   return (
     <div className='signup-wrapper'>
       <h2 className='title'>
@@ -75,6 +104,9 @@ const  SignUpSignIn = () => {
     <Button disabled={loading} text={loading ? "Loading...":"Sign Up using Email And Password"} onClick={signUpWithEmail}/>
     <p style={{textAlign:"center", margin: 0}}>or</p>
     <Button disabled={loading}text={ loading ? "Loading..." : "Sign Up Using Google "} blue={true} />
+   
+    <p>Already have an account <span style={{color:"var(--theme)"}} onClick={()=>{setIsLogIn(true)}}>click here</span></p>
+
     </div>
   )
 }
