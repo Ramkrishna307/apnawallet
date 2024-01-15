@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import "./style.css"
 import Input from '../Input'
 import Button from '../Button';
-import { auth, db } from '../../firebase';
+import { auth, db, provider } from '../../firebase';
 import { toast } from 'react-toastify';
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc,getDoc } from "firebase/firestore"; 
 import { useNavigate } from 'react-router-dom';
 const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
@@ -71,7 +71,7 @@ const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
       if (!docSnapshot.exists()) {
         // Document does not exist, create it
         await setDoc(docRef, {
-          name: name,
+          name: user.displayName ? user.displayName :name,
           email: user.email,
           photoURL: user.photoURL ? user.photoURL : "",
           createdAt: new Date(),
@@ -84,6 +84,43 @@ const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
         setLoading(false);
         navigate("/dashboard");
       }
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
+  }
+
+  function googleAuth(){
+     setLoading(true);
+
+    try {
+      signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    console.log("user>>>",user);
+
+    toast.success("User Authenticated");
+    setLoading(false);
+    createDocs(user);
+    navigate("/dashboard");
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+
+
+  toast.error(errorMessage);
+  setLoading(false);
+  });
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
@@ -103,7 +140,7 @@ const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
     </form>
     <Button disabled={loading} text={loading ? "Loading...":"Sign Up using Email And Password"} onClick={signUpWithEmail}/>
     <p style={{textAlign:"center", margin: 0}}>or</p>
-    <Button disabled={loading}text={ loading ? "Loading..." : "Sign Up Using Google "} blue={true} />
+    <Button disabled={loading} onClick={googleAuth} text={ loading ? "Loading..." : "Sign Up Using Google "} blue={true} />
    
     <p>Already have an account <span style={{color:"var(--theme)"}} onClick={()=>{setIsLogIn(true)}}>click here</span></p>
 

@@ -1,0 +1,26 @@
+ 
+ *{
+    box-sizing: border-box !important;
+ }
+
+
+
+.my-row{
+    display: flex !important; 
+    justify-content:space-around!important;
+    align-items:  center; 
+    flex-wrap: wrap;
+    margin: 1rem;
+    width: 100%;
+    /* gap: 5rem; */
+
+}
+
+.my-card{
+    box-shadow: var(--shadow);
+    min-width: 400px;
+}
+.ant-card-head-title {
+  font-weight: 400;
+  font-family:  'Roboto', sans-serif;
+}

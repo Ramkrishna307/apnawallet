@@ -42,7 +42,7 @@ const LogIn = ({isLogin,setIsLogIn}) => {
     
   }
 
-
+   
 
   return (
     <div className='signup-wrapper'>
