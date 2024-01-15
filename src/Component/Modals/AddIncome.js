@@ -1,5 +1,6 @@
-import { Form, Input, Modal } from 'antd';
+import { DatePicker, Form, Input, Modal, Button, Select} from 'antd';
 import React from 'react';
+
 
 const AddIncome = ({ isIncomeModalVisible, handleIncomeCancel, onFinish }) => {
   const [form] = Form.useForm();
@@ -17,7 +18,8 @@ const AddIncome = ({ isIncomeModalVisible, handleIncomeCancel, onFinish }) => {
         form={form}
         layout="vertical"
         onFinish={(values) => {
-          onFinish(values, "expense");
+          console.log('Form values:', values);
+          onFinish(values, "Income");
           form.resetFields();
         }}
       >
@@ -57,8 +59,55 @@ const AddIncome = ({ isIncomeModalVisible, handleIncomeCancel, onFinish }) => {
             },
           ]}
         >
-          <Input type="text" className="custom-input" />
+ 
+          <DatePicker className="custom-input" />
         </Form.Item>
+        <Form.Item label="Status" name="status">
+  <Select
+    showSearch
+    style={{
+      width: 200,
+    }}
+    placeholder="Search to Select"
+    optionFilterProp="children"
+    filterOption={(input, option) => (option?.label ?? '').includes(input)}
+    filterSort={(optionA, optionB) =>
+      (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+    }
+    options={[
+      {
+        value: 'Interest',
+        label: 'Interest',
+      },
+      {
+        value: 'Rent',
+        label: 'Rent',
+      },
+      {
+        value: 'Salaries',
+        label: 'Salaries',
+      },
+      {
+        value: '4',
+        label: 'Identified',
+      },
+      {
+        value: '5',
+        label: 'Resolved',
+      },
+      {
+        value: '6',
+        label: 'Cancelled',
+      },
+    ]}
+  ></Select>
+</Form.Item>
+
+        <Form.Item>
+        <Button   htmlType="submit">Submit</Button>
+             
+        </Form.Item>
+      
       </Form>
       </Modal>
     </>

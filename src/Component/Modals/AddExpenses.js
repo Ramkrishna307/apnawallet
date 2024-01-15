@@ -1,4 +1,4 @@
-import { Form, Input, Modal } from 'antd';
+import { Button, DatePicker, Form, Input, Modal, Select } from 'antd';
 import React from 'react';
 
 const AddExpenses = ({ isExpenseVisible, handleExpenseCancel, onFinish }) => {
@@ -57,7 +57,53 @@ const AddExpenses = ({ isExpenseVisible, handleExpenseCancel, onFinish }) => {
             },
           ]}
         >
-          <Input type="text" className="custom-input" />
+         
+         <DatePicker className="custom-input" />
+        </Form.Item>
+        <Form.Item label="Status" name="status">
+        <Select
+    showSearch
+    style={{
+      width: 200,
+    }}
+    placeholder="Search to Select"
+    optionFilterProp="children"
+    filterOption={(input, option) => (option?.label ?? '').includes(input)}
+    filterSort={(optionA, optionB) =>
+      (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+    }
+    options={[
+      {
+        value: 'Travelling expense',
+        label: 'Travelling expense',
+      },
+      {
+        value: 'Rent, rates and taxes',
+        label: 'Rent, rates and taxes',
+      },
+      {
+        value: 'Shopping',
+        label: 'Shopping',
+      },
+      {
+        value: 'Electricity Bill',
+        label: 'Electricity Bill',
+      },
+      {
+        value: 'Insurence Bill',
+        label: 'Insurence Bill',
+      },
+      {
+        value: 'EMI',
+        label: 'EMI',
+      },
+    ]}
+  ></Select>
+</Form.Item>
+
+        <Form.Item>
+        <Button   htmlType="submit">Submit</Button>
+             
         </Form.Item>
       </Form>
       </Modal>
