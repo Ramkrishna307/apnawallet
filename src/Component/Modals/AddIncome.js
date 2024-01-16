@@ -46,7 +46,7 @@ const AddIncome = ({ isIncomeModalVisible, handleIncomeCancel, onFinish }) => {
             },
           ]}
         >
-          <Input type="text" className="custom-input" />
+          <Input type="number" className="custom-input" />
         </Form.Item>
 
         <Form.Item

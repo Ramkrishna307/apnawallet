@@ -3,20 +3,20 @@ import React from 'react'
 import './style.css';
 import Button from '../Button';
 const  Crads = (   {showExpenseModal,
-    showIncomeModal}) => {
+    showIncomeModal,income,expense,totalBalance}) => {
   return (
     <div className='card-container'>
         <Row className='my-row'>
             <Card className='my-card' title="Current Balance">
-            <p>₹</p>
+            <p>₹{totalBalance}</p>
             <Button text={"Reset Balance"} blue={"true"}/>
             </Card>
             <Card className='my-card' title="Total Income">
-            <p>₹</p>
+            <p>₹{income}</p>
             <Button text={"Reset Balance"} blue={"true"} onClick={showIncomeModal}/>
             </Card>
             <Card className='my-card' title="Total Expenses">
-            <p>₹</p>
+            <p>₹{expense}</p>
             <Button text={"Reset Balance"} blue={"true"} onClick={showExpenseModal}/>
             </Card>
         </Row>

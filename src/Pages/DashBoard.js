@@ -8,12 +8,16 @@ import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import TransactionTable from '../Component/TransactionTable';
 
 const DashBoard = () => {
   const [user] = useAuthState(auth); // Assuming 'auth' is part of your firebase configuration
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
   const [isIncomeModalVisible, setIncomeModalVisible] = useState(false);
   const[transaction,setTransction]=useState([]);
+  const[income,setIncome]=useState(0);
+  const[expense,setExpence]=useState(0);
+  const[totalBalance,setTotalBalance]=useState(0);
 
   const showExpenseModal = () => {
     setIsExpenseModalVisible(true);
@@ -48,6 +52,7 @@ const DashBoard = () => {
     try {
       const docRef = await addDoc(collection(db, `user/${user.uid}/transaction`), transaction);
       console.log("Document written with ID", docRef.id);
+      fetchTransactions();
       toast.success("Transaction Added");
     } catch (error) {
       console.error("Error adding document", error);
@@ -77,15 +82,41 @@ const DashBoard = () => {
 
     }
   }
+
+  useEffect(() => {
+    calculateBalance()
+  }, [transaction])
+
+
+  function calculateBalance() {
+    let totalincome = 0;
+    let totalexpense = 0;
+    transaction.forEach((trans) => {
+      if (trans.type === "Income") {
+        totalincome += Number(trans.amount);
+      } else {
+        totalexpense += Number(trans.amount);
+      }
+    });
+    console.log("Total Income:", totalincome);
+    console.log("Total Expense:", totalexpense);
+    setIncome(totalincome);
+    setExpence(totalexpense);
+    setTotalBalance(totalincome - totalexpense);
+  }
   return (
     <div>
       <Header />
       <Crads
+      income={income}
+      expense={expense}
+      totalBalance={totalBalance}
         showIncomeModal={showIncomeModal}
         showExpenseModal={showExpenseModal}
       />
       <AddIncome handleIncomeCancel={handleIncomeCancel} isIncomeModalVisible={isIncomeModalVisible} onFinish={onFinish} />
       <AddExpenses handleExpenseCancel={handleExpenseCancel} isExpenseVisible={isExpenseModalVisible} onFinish={onFinish} />
+    <TransactionTable transaction={transaction}/>
     </div>
   );
 };
