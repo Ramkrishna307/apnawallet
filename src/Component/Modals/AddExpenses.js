@@ -74,29 +74,29 @@ const AddExpenses = ({ isExpenseVisible, handleExpenseCancel, onFinish }) => {
     }
     options={[
       {
-        value: 'Travelling expense',
-        label: 'Travelling expense',
+        value: 'food',
+        label: 'Food',
       },
       {
-        value: 'Rent, rates and taxes',
-        label: 'Rent, rates and taxes',
+        value: 'education',
+        label: 'Education',
       },
       {
         value: 'Shopping',
         label: 'Shopping',
       },
-      {
-        value: 'Electricity Bill',
-        label: 'Electricity Bill',
-      },
-      {
-        value: 'Insurence Bill',
-        label: 'Insurence Bill',
-      },
-      {
-        value: 'EMI',
-        label: 'EMI',
-      },
+      // {
+      //   value: 'Electricity Bill',
+      //   label: 'Electricity Bill',
+      // },
+      // {
+      //   value: 'Insurence Bill',
+      //   label: 'Insurence Bill',
+      // },
+      // {
+      //   value: 'EMI',
+      //   label: 'EMI',
+      // },
     ]}
   ></Select>
 </Form.Item>
