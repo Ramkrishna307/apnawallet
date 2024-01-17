@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import {useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import userImg from '../../Assects/userImg.png'
 
 const Header = () => {
   const [user, loading] = useAuthState(auth);
@@ -37,7 +38,16 @@ const Header = () => {
         <p className="logo link">
             ApnaWallet.
         </p>
-        {user &&      <p className="logo link" onClick={logoutFun}>Log Out</p>}
+        {user && 
+        <div style={{display:"flex",alignItems:"center", gap:"0.75rem"}}>
+           
+           <img
+           src={user.photoURL ? user.photoURL: userImg}
+           style={{borderRadius:"50%", height:"2rem",width:"2rem"}}
+           />
+           <p className="logo link" onClick={logoutFun}>Log Out</p>
+           
+        </div>}
        
       </div>
 

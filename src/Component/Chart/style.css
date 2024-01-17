@@ -1,0 +1,8 @@
+.chart-container{
+    display: flex;
+    align-items:  center;
+    justify-content: space-between;
+    /* gap: 10rem; */
+    width: 100vw;
+    
+}

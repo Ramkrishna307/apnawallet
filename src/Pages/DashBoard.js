@@ -9,6 +9,8 @@ import { auth, db } from '../firebase';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import TransactionTable from '../Component/TransactionTable';
+import ChartComponent from '../Component/Chart';
+import NoComponent from '../Component/NoComponent';
 
 const DashBoard = () => {
   const [user] = useAuthState(auth); // Assuming 'auth' is part of your firebase configuration
@@ -40,7 +42,7 @@ const DashBoard = () => {
 
     const newTransaction = {
       type: types,
-      date: moment(values.date).format("YYYY-MM-DD"), // Replace with the correct implementation of mockComponent
+      date: (values.date).format("YYYY-MM-DD"), // Replace with the correct implementation of mockComponent
       name: values.name,
       tag:values.status,
       amount:values.amount,
@@ -48,15 +50,15 @@ const DashBoard = () => {
     addTransaction(newTransaction);
   }
 
-  async function addTransaction(transaction) {
+  async function addTransaction(transaction,many) {
     try {
       const docRef = await addDoc(collection(db, `user/${user.uid}/transaction`), transaction);
       console.log("Document written with ID", docRef.id);
       fetchTransactions();
-      toast.success("Transaction Added");
+     if(!many) toast.success("Transaction Added");
     } catch (error) {
       console.error("Error adding document", error);
-      toast.error("Failed To add the transaction")
+     if(!many) toast.error("Failed To add the transaction")
     }
   }
 
@@ -65,7 +67,7 @@ const DashBoard = () => {
   useEffect(() => {
    //get all the doc from transaction
    fetchTransactions();
-  }, [])
+  }, [user])
   
   async function fetchTransactions(){
     if(user){
@@ -104,6 +106,11 @@ const DashBoard = () => {
     setExpence(totalexpense);
     setTotalBalance(totalincome - totalexpense);
   }
+
+  let sortedTransaction=transaction.sort((a,b)=>{
+    return new Date(a.date) - new Date(b.date);
+  }
+  )
   return (
     <div>
       <Header />
@@ -116,7 +123,8 @@ const DashBoard = () => {
       />
       <AddIncome handleIncomeCancel={handleIncomeCancel} isIncomeModalVisible={isIncomeModalVisible} onFinish={onFinish} />
       <AddExpenses handleExpenseCancel={handleExpenseCancel} isExpenseVisible={isExpenseModalVisible} onFinish={onFinish} />
-    <TransactionTable transaction={transaction}/>
+    {transaction.length>0 ? <ChartComponent sortedTransaction={sortedTransaction}/> : <NoComponent/>}
+    <TransactionTable transaction={transaction} addTransaction={addTransaction} fetchTransactions={fetchTransactions}/>
     </div>
   );
 };
