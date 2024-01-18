@@ -13,11 +13,11 @@ const  Crads = (   {showExpenseModal,
             </Card>
             <Card className='my-card' title="Total Income">
             <p>₹{income}</p>
-            <Button text={"Reset Balance"} blue={"true"} onClick={showIncomeModal}/>
+            <Button text={"Add Balance"} blue={"true"} onClick={showIncomeModal}/>
             </Card>
             <Card className='my-card' title="Total Expenses">
             <p>₹{expense}</p>
-            <Button text={"Reset Balance"} blue={"true"} onClick={showExpenseModal}/>
+            <Button text={"Add Expense"} blue={"true"} onClick={showExpenseModal}/>
             </Card>
         </Row>
        

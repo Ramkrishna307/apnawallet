@@ -18,7 +18,7 @@
 
 .my-card{
     box-shadow: var(--shadow);
-    min-width: 400px;
+    min-width: 450px;
 }
 .ant-card-head-title {
   font-weight: 400;

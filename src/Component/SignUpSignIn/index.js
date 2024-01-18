@@ -25,7 +25,7 @@ const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
     .then((userCredential) => {
       // Signed up 
       const user = userCredential.user;
-      console.log("User >>",user);
+      // console.log("User >>",user);
       toast.success("User sucessfully created")
 
 
@@ -102,7 +102,7 @@ const  SignUpSignIn = ({isLogin,setIsLogIn}) => {
     // The signed-in user info.
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
-    console.log("user>>>",user);
+    // console.log("user>>>",user);
 
     toast.success("User Authenticated");
     setLoading(false);

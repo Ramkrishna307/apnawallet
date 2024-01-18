@@ -87,18 +87,7 @@ const AddIncome = ({ isIncomeModalVisible, handleIncomeCancel, onFinish }) => {
         value: 'Salaries',
         label: 'Salaries',
       },
-      {
-        value: '4',
-        label: 'Identified',
-      },
-      {
-        value: '5',
-        label: 'Resolved',
-      },
-      {
-        value: '6',
-        label: 'Cancelled',
-      },
+     
     ]}
   ></Select>
 </Form.Item>

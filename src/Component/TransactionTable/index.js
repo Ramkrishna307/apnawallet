@@ -116,7 +116,7 @@ const TransactionTable = ({
 
   return (
     <div className="list-view-container">
-      <div>
+    
         <div className="input-container">
           <input
             className="input-tag"
@@ -138,7 +138,7 @@ const TransactionTable = ({
         </div>
 
       
-      </div>
+      
 
       <div className="table-container">
         <h2 className="table-heading">List Of All Transaction</h2>

@@ -1,7 +1,7 @@
-import React from 'react';
-import './style.css';
-import { Line, Pie } from '@ant-design/charts';
-// import PieChart from './PieChart';
+import React from "react";
+import "./style.css";
+import { Line, Pie } from "@ant-design/charts";
+
 const ChartComponent = ({ sortedTransaction }) => {
   // Line chart data
   const data = sortedTransaction.map((item) => {
@@ -29,48 +29,62 @@ const ChartComponent = ({ sortedTransaction }) => {
 
   sortedTransaction.forEach((item) => {
     const amount = Number(item.amount); // Convert to number
-  
-    if (item.tag === "food") {
-      spendingData[0].amount += amount;
-    } else if (item.tag === "education") {
-      spendingData[1].amount += amount;
-    } else {
-      spendingData[2].amount += amount;
+
+    if (item.type !== "Income") {
+      if (item.tag === "food") {
+        spendingData[0].amount += amount;
+      } else if (item.tag === "education") {
+        spendingData[1].amount += amount;
+      } else {
+        spendingData[2].amount += amount;
+      }
     }
   });
 
   const config = {
-    data,
-    xField: 'date',
-    yField: 'amount',
+    data: data,
+    xField: "date",
+    yField: "amount",
+    smooth: true,
+    point: {
+      size: 5,
+    },
+    showMarkers: true,
+    showContent: true,
+    showCrosshairs: true,
   };
-  console.log("spending",spendingData );
-  console.log("final spending",finalSpendings);
+
+  console.log("spending", spendingData);
+  console.log("final spending", finalSpendings);
+
   const spendingConfig = {
     data: spendingData,
-    width: 500,
-    angleField: 'amount',
-    colorField: 'tag',
-    
+    // width: 500,
+    angleField: "amount",
+    colorField: "tag",
   };
 
   // Declare the variable pieChart
   let pieChart;
 
   return (
-    <div className='chart-container'>
-      <div className='line-chart'>
-        <Line {...config} />
+    <div className="chart-container">
+      <div className="line-chart-container">
+        <h2 className="chart-heading">Finance Analyst</h2>
+        <div className="line-chart">
+          <Line {...config} />
+        </div>
       </div>
-      <div className='pie-chart'>
-        <Pie
-          {...spendingConfig}
-          onReady={(chartInstance) => {
-            pieChart = chartInstance;
-          }}
-        />
-      
-      {/* <PieChart/> */}
+      <div className="pie-chart-container">
+        <h2 className="chart-heading">Expense Analyst</h2>
+        <div className="pie-chart">
+          <Pie
+            {...spendingConfig}
+            onReady={(chartInstance) => {
+              pieChart = chartInstance;
+            }}
+          />
+        </div>
       </div>
     </div>
   );

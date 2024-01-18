@@ -21,7 +21,7 @@ const LogIn = ({isLogin,setIsLogIn}) => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        console.log("User >>",user);
+        // console.log("User >>",user);
         toast.success("User sucessfully log in!")
         navigate("/dashboard");
    
