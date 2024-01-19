@@ -1,6 +1,6 @@
 .input-container{
   display: flex;
-  /* justify-content: space-between; */
+
   align-items:  center;
   gap: 5rem;
   box-shadow: var(--shadow);
@@ -13,7 +13,7 @@
 }
 .ant-select-selector,.ant-select{
 margin:1rem;
-/* padding:1rem; */
+
 width:30%;
 }
 .input-tag {
@@ -90,8 +90,7 @@ opacity:0.4;
 
   }
   
-  /* You can add more styles as needed */
-  /* TransactionTable.css */
+
 .file-upload-container {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -124,16 +123,10 @@ opacity:0.4;
 
   
 
-
-
-/* Radio container style */
-
  .radio-parent{
   align-items: center;
   display: flex;
-  /* flex-direction: row-reverse; */
   justify-content: space-between;
-  /* align-items: flex-end; */
   margin-left: 2rem;
   margin-right: 2rem;
 }

@@ -1,11 +1,9 @@
 .chart-container {
     display: flex;
     align-items: center;
-    /* flex-wrap: wrap; */
     margin-left: 2rem;
     margin-right: 1rem;
     margin-top: 1rem;
-    /* width: 100vh; */
     gap: 2rem;
   }
   
@@ -17,18 +15,15 @@
     flex-direction: column;
     align-items: center;
     box-shadow: var(--shadow);
-    width: 60vw; /* Set line chart container to 70% width */
+    width: 60vw; 
   }
   
   .pie-chart-container {
-    width: 40vw; /* Set pie chart container to 30% width */
-    justify-content: flex-start; /* Align items to the start for the pie chart container */
+    width: 40vw; 
+    justify-content: flex-start; 
   }
 
-  /* .data-chart-source-type{
-    object-fit: contain;
-  }
-   */
+
    .chart-heading{
     margin-top: 0.5rem;
     font-weight: 400;

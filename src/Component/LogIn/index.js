@@ -19,9 +19,9 @@ const LogIn = ({isLogin,setIsLogIn}) => {
     if(email !="" && password !=""){
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
+
         const user = userCredential.user;
-        // console.log("User >>",user);
+
         toast.success("User sucessfully log in!")
         navigate("/dashboard");
    
